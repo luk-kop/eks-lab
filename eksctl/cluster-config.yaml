@@ -1,0 +1,50 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eks-lab-cluster
+  region: eu-north-1
+  version: 1.29
+  tags: {}
+
+iam:
+  withOIDC: true
+
+kubernetesNetworkConfig:
+  ipFamily: IPv4
+  serviceIPv4CIDR:
+
+accessConfig:
+  # Set CONFIG_MAP only for testing migration to API
+  authenticationMode: CONFIG_MAP
+
+managedNodeGroups:
+  - name: managed-ng-1
+    instanceType: t3.large
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 3
+    volumeSize: 20
+    volumeType: gp3
+    volumeEncrypted: true
+    labels: {role: worker}
+    tags:
+      nodegroup-role: worker
+    iam:
+      withAddonPolicies:
+        ebs: true
+        externalDNS: true
+        certManager: true
+
+addons:
+- name: vpc-cni # no version is specified so it deploys the default version
+  version: latest
+  attachPolicyARNs:
+    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+- name: coredns
+  version: latest
+- name: kube-proxy
+  version: latest
+- name: aws-ebs-csi-driver
+  wellKnownPolicies:
+    ebsCSIController: true
