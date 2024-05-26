@@ -39,7 +39,7 @@ managedNodeGroups:
 cloudWatch:
   clusterLogging:
     enableTypes: ["*"]
-    logRetentionInDays: 2
+    logRetentionInDays: 3
 
 addons:
   - name: vpc-cni
