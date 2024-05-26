@@ -1,8 +1,9 @@
 # eksctl
 
-> `ClusterConfig` file schema - [eksctl docks](https://eksctl.io/usage/schema/)
-
-> `ClusterConfig` file examples - [eksctl GitHub](https://github.com/eksctl-io/eksctl/tree/main/examples)
+## Documentation
+- The `ClusterConfig` file schema - [eksctl docks](https://eksctl.io/usage/schema/)
+- The `ClusterConfig` file examples - [eksctl GitHub](https://github.com/eksctl-io/eksctl/tree/main/examples)
+- The `eksctl` EKS Add-Ons - [eksctl docks](https://eksctl.io/usage/addons/)
 
 Command examples:
 - Check `eksctl` version:

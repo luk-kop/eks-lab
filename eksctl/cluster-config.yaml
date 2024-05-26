@@ -3,8 +3,8 @@ kind: ClusterConfig
 
 metadata:
   name: eks-lab-cluster
-  region: eu-north-1
-  version: 1.29
+  region: eu-west-1
+  version: "1.29"
   tags: {}
 
 iam:
@@ -36,15 +36,20 @@ managedNodeGroups:
         externalDNS: true
         certManager: true
 
+cloudWatch:
+  clusterLogging:
+    enableTypes: ["*"]
+    logRetentionInDays: 2
+
 addons:
-- name: vpc-cni # no version is specified so it deploys the default version
-  version: latest
-  attachPolicyARNs:
-    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
-- name: coredns
-  version: latest
-- name: kube-proxy
-  version: latest
-- name: aws-ebs-csi-driver
-  wellKnownPolicies:
-    ebsCSIController: true
+  - name: vpc-cni
+    version: latest
+    attachPolicyARNs:
+      - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+  - name: coredns
+    version: latest
+  - name: kube-proxy
+    version: latest
+  - name: aws-ebs-csi-driver
+    wellKnownPolicies:
+      ebsCSIController: true
